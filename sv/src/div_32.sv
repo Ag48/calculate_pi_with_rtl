@@ -28,13 +28,17 @@ logic [P_WIDTH:0]         M_reg;     // 除数 (P_WIDTH+1 ビット, {0, divisor
 logic [$clog2(P_WIDTH+1)-1:0] count_reg; // ループカウンタ (0 から P_WIDTH まで表現可能)
 
 logic done_internal;
+logic A_prev_sign;
+logic Q_msb;
 
-logic A_prev_sign = A_reg[P_WIDTH];     // 前回のAの符号
-logic Q_msb = Q_reg[P_WIDTH-1];         // 現在のQのMSB
+assign A_prev_sign = A_reg[P_WIDTH];     // 前回のAの符号
+assign Q_msb = Q_reg[P_WIDTH-1];         // 現在のQのMSB
 
 // ステップ1: AとQを結合して左シフト
-logic [P_WIDTH:0]   A_shifted_current = {A_reg[P_WIDTH-1:0], Q_msb};
-logic [P_WIDTH-1:0] Q_next_shifted_part = Q_reg << 1;
+logic [P_WIDTH:0]   A_shifted_current;
+logic [P_WIDTH-1:0] Q_next_shifted_part;
+assign A_shifted_current = {A_reg[P_WIDTH-1:0], Q_msb};
+assign  Q_next_shifted_part = Q_reg << 1;
 
 // ステップ2: 前回のAの符号に基づいて加算または減算
 logic [P_WIDTH:0] A_op_result_current;
