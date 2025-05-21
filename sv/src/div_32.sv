@@ -1,4 +1,4 @@
-module non_restoring_divider #(
+module div_32 #(
     parameter P_WIDTH = 32
 ) (
     input  logic                 clk,

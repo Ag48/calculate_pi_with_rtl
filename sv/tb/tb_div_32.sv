@@ -56,13 +56,13 @@ module tb_div_32;
     end
 
   end
-
+  // `WATCHDOG(100ms);
 
   initial begin: gen_clk
     clk = 'b0;
     forever #(L_CLK_PERIOD/2) clk = ~clk;
   end
 
-  non_restoring_divider DUT (.*);
+  div_32 DUT (.*);
 
 endmodule
